@@ -1,0 +1,65 @@
+x-logging: &logs
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  app:
+    build:
+      context: ./docker
+      dockerfile: php/Dockerfile
+    image: menumind-app
+    container_name: menumind-app
+    env_file:
+      - .env
+    environment:
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_DATABASE: menumind
+      DB_USERNAME: menumind
+    ports:
+      - "8100:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    mem_limit: 256m
+    logging: *logs
+
+  postgres:
+    image: postgres:18-alpine
+    container_name: menumind-postgres
+    environment:
+      POSTGRES_DB: menumind
+      POSTGRES_USER: menumind
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      TZ: America/Santo_Domingo
+    command:
+      - postgres
+      - -c
+      - shared_buffers=32MB
+      - -c
+      - max_connections=20
+      - -c
+      - work_mem=4MB
+      - -c
+      - maintenance_work_mem=32MB
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U menumind -d menumind"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+    mem_limit: 160m
+    logging: *logs
+
+volumes:
+  pgdata:

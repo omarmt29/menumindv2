@@ -1,0 +1,40 @@
+<?php
+
+return [
+    'confirmed' => 'La confirmación de :attribute no coincide.',
+    'email' => ':attribute debe ser un correo válido.',
+    'exists' => 'El :attribute seleccionado no es válido.',
+    'integer' => ':attribute debe ser un número entero.',
+    'max' => [
+        'numeric' => ':attribute no puede ser mayor que :max.',
+        'string' => ':attribute no puede tener más de :max caracteres.',
+    ],
+    'min' => [
+        'numeric' => ':attribute debe ser al menos :min.',
+        'string' => ':attribute debe tener al menos :min caracteres.',
+    ],
+    'numeric' => ':attribute debe ser un número.',
+    'required' => 'El campo :attribute es obligatorio.',
+    'string' => ':attribute debe ser texto.',
+    'unique' => 'Ese :attribute ya está en uso.',
+    'attributes' => [
+        'name' => 'nombre',
+        'email' => 'correo',
+        'password' => 'contraseña',
+        'password_confirmation' => 'confirmación',
+        'price' => 'precio',
+        'detail' => 'detalle',
+        'category' => 'categoría',
+        'description' => 'descripción',
+        'admin_name' => 'nombre del acceso',
+        'admin_email' => 'correo de acceso',
+        'admin_password' => 'contraseña de acceso',
+        'restaurant_id' => 'restaurante',
+        'restaurant_name' => 'nombre del restaurante',
+        'phone' => 'teléfono',
+        'address' => 'dirección',
+        'city' => 'ciudad',
+        'cuisine' => 'cocina',
+        'contact_email' => 'correo de contacto',
+    ],
+];
